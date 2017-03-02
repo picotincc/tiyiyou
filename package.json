@@ -1,0 +1,46 @@
+{
+  "name": "tiyiyou",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maybeShuo/tiyiyou.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maybeShuo/tiyiyou/issues"
+  },
+  "homepage": "https://github.com/maybeShuo/tiyiyou#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "css-loader": "^0.26.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.1",
+    "gulp": "^3.9.1",
+    "gulp-open": "^2.0.0",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-replace": "^0.4.3",
+    "jquery": "^3.1.1",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
+    "postcss-less": "^0.15.0",
+    "postcss-loader": "^1.3.3",
+    "rimraf": "^2.6.1",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
