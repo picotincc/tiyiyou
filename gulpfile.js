@@ -40,7 +40,7 @@ gulp.task("revision", function(){
 });
 
 
-gulp.task("rev", ["output-clean", "copy-font","copy-png", "revision"], function(){
+gulp.task("rev", ["output-clean", "copy-png", "revision"], function(){
   const manifest = gulp.src("./output/rev-manifest.json");
 
   return gulp.src("./public/*.html")
