@@ -37,7 +37,7 @@ export default class AppComponent extends Component {
   render() {
     const content = this.createContent();
     return (<div className="tyu-app">
-      {content}
+      <div className='section'>{content}</div>
       <FooterNavComponent topic={this.state.topicType} handleTopicChange={this.handleTopicChange} />
     </div>);
   }
