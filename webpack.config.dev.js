@@ -10,7 +10,8 @@ module.exports = {
 
     entry: {
         vendor: [ "babel-polyfill", "jquery"],
-        activity: [ "./activity/index.js", "./activity/resource/index.less" ]
+        activity: [ "./activity/index.js", "./activity/resource/index.less" ],
+        report: [ "./report/index.js", "./report/resource/index.less" ],
     },
 
     output: {
