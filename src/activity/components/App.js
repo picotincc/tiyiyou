@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Select } from 'antd';
 import Modal from 'boron/DropModal';
 import AvtivityService from '../../base/service/ActivityService';
+import Input from '../../base/components/Input';
+import Select from '../../base/components/Select';
+
 const Option = Select.Option;
-const img_url = "/assets/imgs/";
+const img_url = "/imgs/";
 
 export default class App extends Component {
 
@@ -16,6 +18,7 @@ export default class App extends Component {
         this.handleBabyNameChange = this.handleBabyNameChange.bind(this);
         this.handleContactChange = this.handleContactChange.bind(this);
         this.handleKinderGartenChange = this.handleKinderGartenChange.bind(this);
+        this.handleKinderGartenSelect = this.handleKinderGartenSelect.bind(this);
         this.handleJoinNumSelect = this.handleJoinNumSelect.bind(this);
     }
 
@@ -62,6 +65,13 @@ export default class App extends Component {
         }
     }
 
+    handleKinderGartenSelect(value)
+    {
+        this.setState({
+            kindergarten: value
+        });
+    }
+
     handleJoinNumSelect(value)
     {
         this.setState({
@@ -71,43 +81,18 @@ export default class App extends Component {
 
 
 
-    handleContactChange(event)
+    handleContactChange(value)
     {
-        const contact = event.target.value.trim();
-        if(contact !== "")
-        {
-            this.contact.classList.add("hasContent");
-        }
-        else
-        {
-            this.contact.classList.remove("hasContent");
-        }
-
         this.setState({
-            contact
+            contact: value
         });
     }
 
-    handleBabyNameChange(event)
+    handleBabyNameChange(value)
     {
-        const babyName = event.target.value.trim();
-        if(babyName !== "")
-        {
-            this.babyName.classList.add("hasContent");
-        }
-        else
-        {
-            this.babyName.classList.remove("hasContent");
-        }
-
         this.setState({
-            babyName
+            babyName: value
         });
-    }
-
-    handleInputBlur(element)
-    {
-        element.classList.remove("hasContent");
     }
 
     handleConfirm()
@@ -157,68 +142,44 @@ export default class App extends Component {
                         <div className="label">
                             <span className="text">宝宝姓名</span>
                         </div>
-                        <input
-                            type="text"
-                            className="activity-input"
+
+                        <Input
                             placeholder="请输入姓名"
-                            ref={(input) => {this.babyName = input}}
-                            value={this.state.babyName}
                             onChange={this.handleBabyNameChange}
-                            onBlur={() => this.handleInputBlur(this.babyName)}
-                        ></input>
+                        ></Input>
                     </div>
                     <div className="kindergarten">
                         <div className="label">
                             <span className="text">所在幼儿园</span>
                         </div>
+
                         <Select
-                            showSearch
                             placeholder="请选择幼儿园"
-                            optionFilterProp="children"
-                            dropdownClassName="select-dropdown"
+                            dataSource={this.state.kinderGartenDataSource.map(item => item.name)}
                             onSelect={this.handleKinderGartenSelect}
                             onChange={this.handleKinderGartenChange}
-                            filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                        >
-                            {this.state.kinderGartenDataSource.map((item, i) => {
-                                return (
-                                    <Option key={i} value={item.name}>{item.name}</Option>
-                                );
-                            })}
-                        </Select>
+                        ></Select>
                     </div>
                     <div className="contact">
                         <div className="label">
                             <span className="text">家长联系方式</span>
                         </div>
-                        <input
-                            type="text"
-                            className="activity-input"
+
+                        <Input
                             placeholder="请输入联系方式"
-                            ref={(input) => {this.contact = input}}
-                            value={this.state.contact}
                             onChange={this.handleContactChange}
-                            onBlur={() => this.handleInputBlur(this.contact)}
-                        ></input>
+                        ></Input>
                     </div>
                     <div className="join-nums">
                         <div className="label">
                             <span className="text">参与家长数量</span>
                         </div>
                         <Select
-                            showSearch
                             placeholder="请选择数量"
-                            optionFilterProp="children"
-                            dropdownClassName="select-dropdown"
+                            dataSource={this.state.joinNumDataSource.map(item => item + "")}
                             onSelect={this.handleJoinNumSelect}
-                            filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                        >
-                            {this.state.joinNumDataSource.map((item, i) => {
-                                return (
-                                    <Option key={i} value={item + ""}>{item}</Option>
-                                );
-                            })}
-                        </Select>
+                        ></Select>
+
                     </div>
                 </div>
                 <div className="confirm" onClick={this.handleConfirm}>
@@ -239,7 +200,6 @@ export default class App extends Component {
                         <img className="modal-success" src={ img_url + "/success.png"} />
                         <div className="info">报名成功</div>
                     </div>
-
                 </Modal>
             </div>
         );
