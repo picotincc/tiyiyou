@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import AssessmentComponent from './AssessmentComponent';
-import DemensionalityComponent from './DimensionalityComponent';
+import DimensionalityComponent from './DimensionalityComponent';
 import ErrorComponent from './ErrorComponent';
 import FooterNavComponent from './FooterNavComponent';
 import InstanceComponent from './InstanceComponent';
@@ -27,7 +27,7 @@ export default class AppComponent extends Component {
   createContent() {
     switch(this.state.topicType) {
       case 'main': return (<MainComponent />);
-      case 'demensionality': return (<DemensionalityComponent />);
+      case 'demensionality': return (<DimensionalityComponent />);
       case 'instance': return (<InstanceComponent />);
       case 'assessment': return (<AssessmentComponent />);
       default: return (<ErrorComponent title="未发现该页面" message="请确认刷新"/>)

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class DemensionalityComponent extends Component {
+export default class DimensionalityComponent extends Component {
     render() {
-        return (<div className="tyu-demensionality">DemensionalityComponent</div>);
+        return (<div className="tyu-dimensionality">DimensionalityComponent</div>);
     }
 }
