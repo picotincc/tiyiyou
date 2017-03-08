@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import Modal from 'boron/DropModal';
 import AvtivityService from '../../base/service/ActivityService';
 const Option = Select.Option;
+const img_url = "/assets/imgs/";
 
 export default class App extends Component {
 
@@ -139,11 +140,11 @@ export default class App extends Component {
         };
         return (
             <div className="tyy-activity-app">
-                <img className="top" src="/imgs/top.png" />
+                <img className="top" src={img_url + "/top.png"} />
                 <div className="title">
-                    <img className="title-side" src="/imgs/rec.png" />
+                    <img className="title-side" src={img_url + "/rec.png"} />
                     <span className="text">参与报名</span>
-                    <img className="title-side" src="/imgs/rec.png" />
+                    <img className="title-side" src={img_url + "/rec.png"} />
                 </div>
                 <div className="content">
                     <div className="activity">
@@ -223,19 +224,19 @@ export default class App extends Component {
                 <div className="confirm" onClick={this.handleConfirm}>
                     <span className="btn">确认报名</span>
                 </div>
-                <img className="code" src="/imgs/code.png" />
+                <img className="code" src={ img_url + "/code.png"} />
                 <div className="code-tips">
                     扫描二维码关注我们
                 </div>
-                <img className="path-1" src="/imgs/path1.png" />
-                <img className="path-2" src="/imgs/path2.png" />
-                <img className="path-3" src="/imgs/path3.png" />
+                <img className="path-1" src={ img_url + "/path1.png"} />
+                <img className="path-2" src={ img_url + "/path2.png"} />
+                <img className="path-3" src={ img_url + "/path3.png"} />
                 <Modal ref="modal" className="custom-modal" modalStyle={modalStyle}>
                     <div className="modal-container">
-                        <img className="modal-close" src="/imgs/close.png" onClick={this.hideModal}/>
+                        <img className="modal-close" src={ img_url + "/close.png"} onClick={this.hideModal}/>
                         <div className="bar">
                         </div>
-                        <img className="modal-success" src="/imgs/success.png" />
+                        <img className="modal-success" src={ img_url + "/success.png"} />
                         <div className="info">报名成功</div>
                     </div>
 
