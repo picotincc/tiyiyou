@@ -3,7 +3,6 @@ import Modal from 'boron/DropModal';
 import AvtivityService from '../../base/service/ActivityService';
 import Input from '../../base/components/Input';
 import Select from '../../base/components/Select';
-
 const Option = Select.Option;
 const img_url = "/imgs/";
 
@@ -51,6 +50,18 @@ export default class App extends Component {
             this.setState({
                 kinderGartenDataSource: schools
             })
+        });
+        weui.datePicker({
+            start: 1990,
+            end: 2000,
+            defaultValue: [1991, 6, 9],
+            onChange: function(result){
+                console.log(result);
+            },
+            onConfirm: function(result){
+                console.log(result);
+            },
+            id: 'datePicker'
         });
     }
 
@@ -201,6 +212,7 @@ export default class App extends Component {
                         <div className="info">报名成功</div>
                     </div>
                 </Modal>
+                <div className="data-picker" id="dataPicker"></div>
             </div>
         );
     }
