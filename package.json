@@ -50,6 +50,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "jquery-circle-progress": "^1.2.1"
   }
 }
