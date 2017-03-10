@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './index.less';
 
-export default class Input extends Component {
+export default class DateInput extends Component {
 
     constructor (props) {
         super(props);
@@ -14,7 +14,7 @@ export default class Input extends Component {
     static defaultProps = {
         customClass: "",
         placeholder: "",
-        value: "",
+        value: [],
         onChange: () => {},
         onBlur: () => {}
     }
@@ -34,7 +34,7 @@ export default class Input extends Component {
 
         if(value !== "")
         {
-            this.input.classList.add("hasContent");     
+            this.input.classList.add("hasContent");
         }
         else
         {
@@ -49,16 +49,29 @@ export default class Input extends Component {
         this.input.classList.remove("hasContent");
     }
 
+    formatDate(value)
+    {
+        let dateStr = "";
+        if(value.length > 0)
+        {
+             dateStr = value[0] + "年" + value[1] + "月" + value[2] + "日";
+        }
+        return dateStr;
+    }
+
     render()
     {
         const { customClass, placeholder, value } = this.props;
+
+        const date = this.formatDate(value);
         return (
             <input
                 type="text"
-                className={"tyu-custom-input " + customClass}
+                className={"tyu-custom-date-input " + customClass}
                 placeholder={placeholder}
+                readOnly
                 ref={(input) => {this.input = input}}
-                value={value}
+                value={date}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 onFocus={this.props.onFocus}

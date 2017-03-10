@@ -27,6 +27,7 @@ export default class RadarMap {
 
     const dimData = this._initDimensionalityData();
     this._drawDimensionality(dimData);
+    this._drawTitle();
   }
 
   _initDimensionalityData() {
@@ -34,7 +35,7 @@ export default class RadarMap {
       webs: [],
       webPoints: [],
     };
-    this.axisLength = Math.min(this.width, this.height) / 2;
+    this.axisLength = Math.min(this.width, this.height) / 2 * 0.8;
     const onePiece = 2 * Math.PI / this.dimensionalityCount;
     for(let k = this.dimensionalitySize; k > 0; k--) {
       let webs = '';
@@ -63,7 +64,8 @@ export default class RadarMap {
             .append('polygon')
             .attr('points', function(d) {
               return d;
-            });
+            })
+            .style('stroke', 'rgb(255, 238, 213)');
     this.svg.append('g')
         .classed('lines', true)
         .selectAll('line')
@@ -77,7 +79,8 @@ export default class RadarMap {
         })
         .attr('y2', function(d) {
             return d.y;
-        });
+        })
+        .style('stroke', 'rgb(255, 238, 213)');
   }
 
   _initAreaData(data) {
@@ -100,17 +103,66 @@ export default class RadarMap {
     };
   }
 
-  draw(data, className, setting) {
+  _initTitleData() {
+    const textPoints = [];
+    const onePiece = 2 * Math.PI / this.dimensionalityCount;
+    const radius = this.axisLength + 30;
+    for (let i = 0; i < this.dimensionalityCount; i++) {
+        let x = radius * Math.sin(i * onePiece);
+        let y = radius * Math.cos(i * onePiece);
+        if (i === 0 || i - (this.dimensionalityCount + 1) / 2  < 0.01) {
+          y = (radius - 20) * Math.cos(i * onePiece);
+        }
+        if (i == (this.dimensionalityCount + 1) * 1 / 4 || i == (this.dimensionalityCount + 1) * 3 / 4) {
+          x = (radius - 20) * Math.sin(i * onePiece);
+        }
+        textPoints.push({x, y});
+    }
+    return textPoints;
+  }
+
+  _drawTitle() {
+    const data = this._initTitleData();
+    this.svg.append('g').classed('titles', true)
+            .selectAll('text')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('x', function(d) {
+              return d.x - 28;
+            })
+            .attr('y', function(d) {
+              return d.y + 10;
+            })
+            .text((d, i) => {
+              return this.titles[i];
+            })
+            .attr('font-size', '14px')
+            .style({
+              'font-size': '14px',
+              'width': '56px',
+              'height': '20px',
+              'text-align': 'center',
+              'opacity': '0.5'
+            })
+            .attr('transform', 'translate(5, -5)');
+  }
+
+  draw(data, index, setting) {
     const areaData = this._initAreaData(data);
-    console.log(areaData.polygon);
-    let area = this.svg.append('g').classed(className, true)
+    const color = setting.color || '#7eb00a';
+    let area = this.svg.append('g').classed(`area${index}`, true)
         .append('polygon')
         .attr('points', areaData.polygon)
-        .attr('stroke', '#7eb00a')
-        .attr('fill', '#b6a2de');
-
+        .style({
+          'stroke': color,
+          'fill': color,
+          'opacity': '0.5',
+        });
+    const classname = `circles${index}`;
     this.svg.append('g')
-        .classed('circles', true)
+        .classed(classname, true)
+        .selectAll('cirlce')
         .data(areaData.points)
         .enter()
         .append('circle')
@@ -121,10 +173,13 @@ export default class RadarMap {
           return d.y;
         })
         .attr('r', 3)
-        .attr('stroke', '#95706d');
-
-
+        .style({
+          'stroke': color,
+          'fill': color,
+          'opacity': '0.5',
+        });
   }
+
   getColor(idx) {
      const palette = [
          '#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80',
