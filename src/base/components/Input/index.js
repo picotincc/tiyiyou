@@ -12,10 +12,10 @@ export default class Input extends Component {
     }
 
     static defaultProps = {
-        customStyle: "",
+        customClass: "",
         placeholder: "",
-        onChange: null,
-        onBlur: null
+        onChange: () => {},
+        onBlur: () => {}
     }
 
     state = {
@@ -53,11 +53,11 @@ export default class Input extends Component {
 
     render()
     {
-        const { customStyle, placeholder } = this.props;
+        const { customClass, placeholder } = this.props;
         return (
             <input
                 type="text"
-                className={"tyu-custom-input " + customStyle}
+                className={"tyu-custom-input " + customClass}
                 placeholder={placeholder}
                 ref={(input) => {this.input = input}}
                 value={this.state.babyName}

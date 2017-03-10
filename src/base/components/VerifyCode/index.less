@@ -1,0 +1,20 @@
+.verify-code
+{
+    @base-rem-px: 37.5;
+    width: 82rem / @base-rem-px;
+    height: 30rem / @base-rem-px;
+    background: #F5A623;
+    border: 1px solid #F5A623;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14rem / @base-rem-px;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &.disabled
+    {
+        background: #999999;
+    }
+}
