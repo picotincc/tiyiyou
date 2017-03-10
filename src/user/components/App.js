@@ -26,18 +26,7 @@ export default class App extends Component {
 
     componentDidMount()
     {
-        // weui.datePicker({
-        //     start: 1990,
-        //     end: 2000,
-        //     defaultValue: [1991, 6, 9],
-        //     onChange: function(result){
-        //         console.log(result);
-        //     },
-        //     onConfirm: function(result){
-        //         console.log(result);
-        //     },
-        //     id: 'datePicker'
-        // });
+
     }
 
     handleKidNameChange(value)
@@ -61,7 +50,7 @@ export default class App extends Component {
         const birthday = this.state.birthday;
         weui.datePicker({
             start: 2000,
-            end: 2017,
+            end: 2020,
             defaultValue: birthday,
             onConfirm: (result) => {
                 const birthday = result.toString().split(",").map(item => parseInt(item));
@@ -78,7 +67,7 @@ export default class App extends Component {
         const schoolday = this.state.schoolday;
         weui.datePicker({
             start: 2000,
-            end: 2017,
+            end: 2020,
             defaultValue: schoolday,
             onConfirm: (result) => {
                 const schoolday = result.toString().split(",").map(item => parseInt(item));
