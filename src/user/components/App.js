@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../../base/components/Input';
+import DateInput from '../../base/components/DateInput';
+
 import Select from '../../base/components/Select';
 import VerifyCode from '../../base/components/VerifyCode';
 const IMG_URL = "/imgs";
@@ -8,26 +10,83 @@ export default class App extends Component {
     
     constructor (props) {
         super(props);
-        this.checkPhone = this.checkPhone.bind(this);
+
+        this.handleKidNameChange = this.handleKidNameChange.bind(this);
+        this.handleKidClassChange = this.handleKidClassChange.bind(this);
+        this.handleBirthDatePicker = this.handleBirthDatePicker.bind(this);
+        this.handleSchoolDayPicker = this.handleSchoolDayPicker.bind(this);
     }
 
     state = { 
-        phone: ""
+        kidName: "",
+        kidClass: "",
+        birthday: [],
+        schoolday: []
     }
 
     componentDidMount()
     {
+        // weui.datePicker({
+        //     start: 1990,
+        //     end: 2000,
+        //     defaultValue: [1991, 6, 9],
+        //     onChange: function(result){
+        //         console.log(result);
+        //     },
+        //     onConfirm: function(result){
+        //         console.log(result);
+        //     },
+        //     id: 'datePicker'
+        // });
+    }
+
+    handleKidNameChange(value)
+    {
+        this.setState({
+            kidName: value
+        });
+    }
+
+    handleKidClassChange(value)
+    {
+        this.setState({
+            kidClass: value
+        });
+    }
+
+
+
+    handleBirthDatePicker()
+    {
+        const birthday = this.state.birthday;
         weui.datePicker({
-            start: 1990,
-            end: 2000,
-            defaultValue: [1991, 6, 9],
-            onChange: function(result){
-                console.log(result);
+            start: 2000,
+            end: 2017,
+            defaultValue: birthday,
+            onConfirm: (result) => {
+                const birthday = result.toString().split(",").map(item => parseInt(item));
+                this.setState({
+                    birthday
+                });
             },
-            onConfirm: function(result){
-                console.log(result);
+            id: 'birth-datePicker'
+        });
+    }
+
+    handleSchoolDayPicker()
+    {
+        const schoolday = this.state.schoolday;
+        weui.datePicker({
+            start: 2000,
+            end: 2017,
+            defaultValue: schoolday,
+            onConfirm: (result) => {
+                const schoolday = result.toString().split(",").map(item => parseInt(item));
+                this.setState({
+                    schoolday
+                });
             },
-            id: 'datePicker'
+            id: 'school-datePicker'
         });
     }
 
@@ -52,17 +111,21 @@ export default class App extends Component {
                         
                         <Input
                             placeholder="请输入姓名"
-                        ></Input>
+                            value={this.state.kidName}
+                            onChange={this.handleKidNameChange}
+                        />
                     </div>
 
                     <div className="input">
                         <div className="label">
                             <span className="text">出生日期</span>
                         </div>
-                        
-                        <Input
+
+                         <DateInput 
                             placeholder="请选择出生日期"
-                        ></Input>
+                            value={this.state.birthday}
+                            onFocus={this.handleBirthDatePicker}
+                         />     
                     </div>
 
                     <div className="input">
@@ -72,17 +135,20 @@ export default class App extends Component {
                         
                         <Select
                             placeholder="请选择幼儿园"
-                        ></Select>
+                        />
                     </div>
 
                     <div className="input">
                         <div className="label">
                             <span className="text">入学时间</span>
                         </div>
-                        
-                        <Input
+
+                        <DateInput 
                             placeholder="请选择入学时间"
-                        ></Input>
+                            value={this.state.schoolday}
+                            onFocus={this.handleSchoolDayPicker}
+                         />
+                    
                     </div>
 
                     <div className="input">
@@ -92,14 +158,15 @@ export default class App extends Component {
                         
                         <Input
                             placeholder="请输入班级"
-                        ></Input>
+                            value={this.state.kidClass}
+                            onChange={this.handleKidClassChange}
+                        />
                     </div>
 
                     <div className="add-btn">
                         <span>确认添加</span>
                     </div>
 
-                    <div id="datePicker"></div>
                 </div>
             </div>
         );

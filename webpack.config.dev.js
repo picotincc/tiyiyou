@@ -23,7 +23,8 @@ module.exports = {
     },
 
     resolve: {
-        extensions: [ "", ".js", ".less" ]
+        extensions: [ "", ".web.js", ".js", ".less",  ".json" ],
+        modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
     },
 
     devtool: "source-map",

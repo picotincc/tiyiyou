@@ -8,15 +8,31 @@ export default class App extends Component {
     constructor (props) {
         super(props);
         this.checkPhone = this.checkPhone.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
     }
 
     state = { 
-        phone: ""
+        phone: "",
+        code: ""
     }
 
     checkPhone()
     {
         return true;
+    }
+
+    handlePhoneChange(value)
+    {
+        this.setState({
+            phone: value
+        });
+    }
+
+    handleCodeChange(value)
+    {
+        this.setState({
+            code: value
+        });
     }
     
     render() 
@@ -37,7 +53,9 @@ export default class App extends Component {
                         
                         <Input
                             placeholder="请输入手机号"
-                        ></Input>
+                            value={this.state.phone}
+                            onChange={this.handlePhoneChange}
+                        />
                     </div>
 
                     <div className="input code">
@@ -48,7 +66,9 @@ export default class App extends Component {
                         <Input
                             customClass="code-input"
                             placeholder="请输入验证码"
-                        ></Input>
+                            value={this.state.code}
+                            onChange={this.handleCodeChange}
+                        />
 
                         <VerifyCode checkPhone={this.checkPhone} />
                     </div>

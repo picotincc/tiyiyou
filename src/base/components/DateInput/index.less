@@ -1,0 +1,31 @@
+.tyu-custom-date-input
+{
+    @custom-color: #F6A623;
+    @base-rem-px: 37.5;
+
+    outline: none;
+    width: 189rem / @base-rem-px;
+    color: #666666;
+    border: 0;
+    border-bottom: 2px solid #999999;
+    padding-left: 8px;
+    padding-bottom: 4px;
+
+    &::placeholder
+    {
+        color: #666666;
+    }
+
+    &:focus
+    {
+        border: 0;
+        color: @custom-color;
+        border-bottom: 2px solid @custom-color;
+    }
+
+    &.hasContent
+    {
+        color: @custom-color;
+        border-bottom: 2px solid @custom-color;
+    }
+}
