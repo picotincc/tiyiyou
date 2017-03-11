@@ -1,6 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+import Service from '../service/Service';
 
 export default class InstanceComponent extends Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    id: null,
+  }
+
+  state = {
+    data: null
+  }
   constructor(props) {
     super(props);
     this.data = [{
@@ -12,6 +24,20 @@ export default class InstanceComponent extends Component {
     }]
   }
 
+  serializeData(value) {
+    this.setState({
+      data: {
+
+      }
+    });
+  }
+
+  componentDidMount() {
+    Service.getInstance().fetchAdviceInfo(this.props.id).then(result => {
+
+    });
+  }
+
   createContent(data) {
     return (<div className='item'>
       <p className='title'>{data.title}</p>
@@ -20,6 +46,9 @@ export default class InstanceComponent extends Component {
   }
 
   render() {
+    if (!this.state.data) {
+      return (<div />);
+    }
     const contents = this.data.map(item => this.createContent(item));
 
     return (<div className="tyu-instance">

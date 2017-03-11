@@ -2,20 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import 'jquery-circle-progress';
 import cn from 'classnames';
 import Modal from 'boron/DropModal';
+import Service from '../service/Service';
 
 export default class MainComponent extends Component {
 
+  static propTypes = {
+    id: PropTypes.number.isRequired
+  }
+
+  static propTypes = {
+    id: null
+  }
+
+  state = {
+    userInfo: null,
+  };
+
   constructor(props) {
     super(props);
-    this.userInfo = {
-      username: '赵浩然',
-      kindergarten: '南京市雨花台区景明佳园幼儿园',
-      score: 86,
-      scoreType: '正常',
-      rankInGrade: 55.4,
-      rankInClass: 64.29,
-    };
     this.standardInfo = {
+      limit: [95, 90, 80, 70, 60, 0],
       titles: ['商数', '百分位', '类别'],
       data: [
         ['95以上', '3.4', '健将'],
@@ -26,24 +32,40 @@ export default class MainComponent extends Component {
         ['60以下', '100', '较低']
       ]
     }
-    this.selectedStandardIndex = 2;
+  }
+
+  serializedData(value) {
+    this.setState({
+      userInfo: {
+        username: value.name,
+        kindergarten: value.kindergarten,
+        score: value.mq,
+        scoreType: value.mq_title,
+        rankInGrade: value.grade_rate.toFixed(4),
+        rankInClass: value.class_rate.toFixed(4),
+        selectedStandardIndex: this.standardInfo.limit.findIndex(item => item <= value.mq),
+      }
+    });
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      const size = parseInt(document.documentElement.style.fontSize.split('p')[0]) * 4;
-      $('#tyu-radial-process').circleProgress({
-        value: this.userInfo.score / 100,
-        size: size,
-        fill: {
-          gradient: ["rgb(102, 201, 79)", "rgb(245, 167, 41)"]
-        },
-        thickness: 9,
-        lineCap: 'round',
-        emptyFill: 'rgb(252, 234, 201)',
-        reverse: true
-      });
-    },200);
+    Service.getInstance().fetchStudentInfo(this.props.id).then(result => {
+      this.serializedData(result);
+      setTimeout(() => {
+        const size = parseInt(document.documentElement.style.fontSize.split('p')[0]) * 4;
+        $('#tyu-radial-process').circleProgress({
+          value: this.state.userInfo.score / 100,
+          size: size,
+          fill: {
+            gradient: ["rgb(102, 201, 79)", "rgb(245, 167, 41)"]
+          },
+          thickness: 9,
+          lineCap: 'round',
+          emptyFill: 'rgb(252, 234, 201)',
+          reverse: true
+        });
+      },200);
+    });
   }
 
   handleModelOpen = () => {
@@ -57,7 +79,7 @@ export default class MainComponent extends Component {
 
     const trs = data.data.map((item, index) => {
       const tds = item.map(td => {
-        return (<td key={td} className={cn('small-font light', { selected: index === this.selectedStandardIndex})}>{td}</td>);
+        return (<td key={td} className={cn('small-font light', { selected: index === this.state.userInfo.selectedStandardIndex})}>{td}</td>);
       });
       return (<tr key={index}>{tds}</tr>)
     });
@@ -73,6 +95,9 @@ export default class MainComponent extends Component {
   }
 
   render() {
+    if (!this.state.userInfo) {
+      return (<div></div>);
+    }
     const modalStyle = {
       width: '6rem',
       height: '7.2rem',
@@ -88,15 +113,15 @@ export default class MainComponent extends Component {
           <p>幼儿园：</p>
         </div>
         <div className="info-content">
-          <p>{this.userInfo.username}</p>
-          <p>{this.userInfo.kindergarten}</p>
+          <p>{this.state.userInfo.username}</p>
+          <p>{this.state.userInfo.kindergarten}</p>
         </div>
       </div>
       <div className='map-content'>
         <div id='tyu-radial-process' className="radial-process">
           <div className="title">
-            <p className='big-font'>{this.userInfo.scoreType}</p>
-            <p className='large-font'>{this.userInfo.score}</p>
+            <p className='big-font'>{this.state.userInfo.scoreType}</p>
+            <p className='large-font'>{this.state.userInfo.score}</p>
           </div>
           <div className="rank-standard-model" onClick={this.handleModelOpen}>
             <img src="/imgs/notice@2x.png" /><span className='small-font '>评分标准</span>
@@ -106,13 +131,13 @@ export default class MainComponent extends Component {
       <div className='rank'>
         <div className="grade-rank">
           <p className='small-font'>超过了全年级</p>
-          <p className='big-font'>{this.userInfo.rankInGrade}%</p>
+          <p className='big-font'>{this.state.userInfo.rankInGrade * 100}%</p>
           <p className='small-font'>的宝贝</p>
         </div>
         <div className='rank-split'></div>
         <div className="class-rank">
           <p className='small-font'>超过了全班</p>
-          <p className='big-font'>{this.userInfo.rankInClass}%</p>
+          <p className='big-font'>{this.state.userInfo.rankInClass * 100}%</p>
           <p className='small-font'>的宝贝</p>
         </div>
       </div>

@@ -88,7 +88,7 @@ export default class RadarMap {
     let area = '';
     let points = [];
     for(let k = 0; k < this.dimensionalityCount; k++) {
-      const r = this.axisLength * (data[k] - 0) / 100;
+      const r = this.axisLength * (data[k] - 0);
       const x = r * Math.sin(k * onePiece);
       const y = r * Math.cos(k * onePiece);
       area += x + ',' + y + ' ';
