@@ -30,17 +30,20 @@ export default class MainComponent extends Component {
   }
 
   componentDidMount() {
-    $('#tyu-radial-process').circleProgress({
-      value: this.userInfo.score / 100,
-      size: 200,
-      fill: {
-        gradient: ["rgb(102, 201, 79)", "rgb(245, 167, 41)"]
-      },
-      thickness: 9,
-      lineCap: 'round',
-      emptyFill: 'rgb(252, 234, 201)',
-      reverse: true
-    });
+    setTimeout(() => {
+      const size = parseInt(document.documentElement.style.fontSize.split('p')[0]) * 4;
+      $('#tyu-radial-process').circleProgress({
+        value: this.userInfo.score / 100,
+        size: size,
+        fill: {
+          gradient: ["rgb(102, 201, 79)", "rgb(245, 167, 41)"]
+        },
+        thickness: 9,
+        lineCap: 'round',
+        emptyFill: 'rgb(252, 234, 201)',
+        reverse: true
+      });
+    },200);
   }
 
   handleModelOpen = () => {
