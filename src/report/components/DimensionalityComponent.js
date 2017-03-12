@@ -17,8 +17,8 @@ export default class DimensionalityComponent extends Component {
       dimensionalityCount: 7,
       dimensionalitySize: 5,
       titles: ['手眼协调', '灵敏', '平衡', '手部协调', '爆发力', '动作协调', '耐力'],
-      selector: '.radar-map',
-    },
+      selector: '.radar-map'
+    }
   }
 
   serializeData(value) {
@@ -44,7 +44,14 @@ export default class DimensionalityComponent extends Component {
         }, [])
       }
     }, () => {
-      const radarMap = new RadarMap({ setting: this.state.setting });
+      const setting = {
+        dimensionalityCount: 7,
+        dimensionalitySize: 5,
+        titles: ['手眼协调', '灵敏', '平衡', '手部协调', '爆发力', '动作协调', '耐力'],
+        selector: '.radar-map',
+        fontSize: parseInt(document.documentElement.style.fontSize.split('p')[0])
+      };
+      const radarMap = new RadarMap({ setting });
       radarMap.draw(this.state.data.mapData, 1, { fillColor: 'rgba(245,166,35,0.24)', strokeColor: '#F5A623'});
       radarMap.draw(this.state.data.meanMapData, 2, { fillColor: 'rgba(101,201,78,0.16)', strokeColor: '#65C94E'});
     });

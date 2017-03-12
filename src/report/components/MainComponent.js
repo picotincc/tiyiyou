@@ -59,7 +59,7 @@ export default class MainComponent extends Component {
           fill: {
             gradient: ["rgb(102, 201, 79)", "rgb(245, 167, 41)"]
           },
-          thickness: 9,
+          thickness: parseInt(size / 20),
           lineCap: 'round',
           emptyFill: 'rgb(252, 234, 201)',
           reverse: true
