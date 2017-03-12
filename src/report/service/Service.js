@@ -1,4 +1,4 @@
-const basePath = 'http://kid.tusport.cn/api/v1';
+const basePath = 'http://kidh5.tusport.cn/service';
 
 export default class Service {
   static getInstance() {
