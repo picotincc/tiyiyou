@@ -21,5 +21,6 @@ config.plugins.push(
 );
 
 delete config.devtool;
+delete config.devServer;
 
 module.exports = config;

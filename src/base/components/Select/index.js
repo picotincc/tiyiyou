@@ -18,7 +18,8 @@ export default class CustomSelect extends Component {
         placeholder: "",
         dataSource: [],
         onSelect: () => {},
-        onChange: () => {}
+        onChange: () => {},
+        onBlur: () => {}
     }
 
     state = {
@@ -42,13 +43,13 @@ export default class CustomSelect extends Component {
 
     render()
     {
-        const { placeholder, dataSource } = this.props;
+        const { placeholder, dataSource, combobox } = this.props;
         return (
             <Select
                 showSearch
                 placeholder={placeholder}
+                combobox={combobox}
                 optionFilterProp="children"
-                combobox
                 dropdownClassName="tyu-custom-select"
                 onSelect={this.handleSelect}
                 onChange={this.handleChange}

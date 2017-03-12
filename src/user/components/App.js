@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../../base/components/Input';
 import DateInput from '../../base/components/DateInput';
+import ServiceClient from '../../base/service/ServiceClient';
 
 import Select from '../../base/components/Select';
 import VerifyCode from '../../base/components/VerifyCode';
@@ -12,21 +13,71 @@ export default class App extends Component {
         super(props);
 
         this.handleKidNameChange = this.handleKidNameChange.bind(this);
+        this.handleKidClassSelect = this.handleKidClassSelect.bind(this);
         this.handleKidClassChange = this.handleKidClassChange.bind(this);
         this.handleBirthDatePicker = this.handleBirthDatePicker.bind(this);
         this.handleSchoolDayPicker = this.handleSchoolDayPicker.bind(this);
+        this.handleKidSchoolSelect = this.handleKidSchoolSelect.bind(this);
+        this.handleAddKid = this.handleAddKid.bind(this);
     }
 
     state = { 
         kidName: "",
-        kidClass: "",
+        kidClasses: [],
+        selectedKidClass: {},
+        kidSchools: [],
+        selectedKidSchool: "",
         birthday: [],
         schoolday: []
     }
 
     componentDidMount()
     {
+        //获取所有幼儿园
+        ServiceClient.getKidSchools().then(res => {
+            this.setState({
+                kidSchools: res
+            })
+        });
+        
+    }
 
+    handleKidSchoolSelect(value)
+    {
+        const school = this.state.kidSchools.find(item => item.name === value);
+        let kidClasses = [];
+        ServiceClient.getKidClasses(school.id).then(res => {
+            this.setState({
+                selectedKidSchool: school,
+                kidClasses: res
+            })
+        });
+    }
+
+    handleKidClassSelect(value)
+    {
+        const kidClass = this.state.kidClasses.find(item => item.name === value);
+        this.setState({
+            selectedKidClass: kidClass
+        });
+    }
+
+    handleKidClassChange(value)
+    {
+        const kidClass = this.state.kidClasses.find(item => item.name === value);
+        if(kidClass)
+        {
+            this.setState({
+                selectedKidClass: kidClass
+            });
+        }
+        else
+        {
+            const t = { id: -1, name: value };
+            this.setState({
+                selectedKidClass: t
+            });
+        }
     }
 
     handleKidNameChange(value)
@@ -36,12 +87,21 @@ export default class App extends Component {
         });
     }
 
-    handleKidClassChange(value)
+    handleAddKid()
     {
-        this.setState({
-            kidClass: value
+        const { kidName, selectedKidClass, birthday, schoolday } = this.state;
+        const paras = {
+            kidName,
+            classId: selectedKidClass.id,
+            birthday: birthday.join(","),
+            school: schoolday.join(",")
+        }
+        ServiceClient.addKid(paras).then(res => {
+            
         });
     }
+
+
 
 
 
@@ -124,6 +184,9 @@ export default class App extends Component {
                         
                         <Select
                             placeholder="请选择幼儿园"
+                            combobox={false}
+                            dataSource={this.state.kidSchools.map(item => item.name)}
+                            onSelect={this.handleKidSchoolSelect}
                         />
                     </div>
 
@@ -144,15 +207,18 @@ export default class App extends Component {
                         <div className="label">
                             <span className="text">所在班级</span>
                         </div>
-                        
-                        <Input
-                            placeholder="请输入班级"
-                            value={this.state.kidClass}
+
+                        <Select
+                            placeholder="请选择班级"
+                            combobox={true}
+                            dataSource={this.state.kidClasses.map(item => item.name)}
+                            onSelect={this.handleKidClassSelect}
                             onChange={this.handleKidClassChange}
                         />
+                        
                     </div>
 
-                    <div className="add-btn">
+                    <div className="add-btn" onClick={this.handleAddKid}>
                         <span>确认添加</span>
                     </div>
 

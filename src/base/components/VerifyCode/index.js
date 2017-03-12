@@ -37,6 +37,7 @@ export default class VerifyCode extends Component {
 
         if (!disabled && this.props.checkPhone())
         {
+            this.props.onClick();
             this.sendCodeBtn.classList.add("disabled");
             this.setState({
                 disabled: true,

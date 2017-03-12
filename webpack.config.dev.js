@@ -78,6 +78,24 @@ module.exports = {
         }),
 
         new ExtractTextPlugin("./[name]/resource/bundle.css")
-    ]
+    ],
+
+    devServer: {
+        proxy: {
+            "/service/*": {
+                "target": {
+                  "host": "kidh5.tusport.cn",
+                  "protocol": 'http:',
+                  "port": 3000
+                },
+                ignorePath: false,
+                changeOrigin: true,
+                secure: false,
+                // headers: {
+                //     "Referer": "http://music.163.com"
+                // }
+            }
+        }
+    }
 
 };
