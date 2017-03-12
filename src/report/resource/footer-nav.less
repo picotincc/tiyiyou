@@ -1,6 +1,7 @@
 .tyu-footer-nav {
   position: fixed;
   height: 1rem;
+  width: 7.5rem;
   left: 0;
   right: 0;
   bottom: 0;
@@ -26,7 +27,15 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
+      > img {
+        width: .48rem;
+        height: .48rem;
+        margin-bottom: 4px;
+      }
+      > .item-title.active {
+        color: #F5A623;
+        font-family: 'PingFangSC-Regular';
+      }
     }
   }
 }

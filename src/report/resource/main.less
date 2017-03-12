@@ -1,30 +1,199 @@
 .tyu-main {
   width: 100%;
-  height: 5rem;
-  // height: 50rem;
-  // background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: scroll;
+  margin-bottom: 1rem;
 
-  > .radial-process {
+  > .header {
+    height: 1.8rem;
+    width: 100%;
+
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  > .user-info {
+    flex-basis: 1.6rem;
+    flex-grow: 0;
+    margin-top: .6rem;
+    margin-bottom: .4rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #666666;
+    font-family: 'PingFangSC-Light';
+
+    p {
+      margin-top: 0;
+      margin-bottom: .2rem;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    > .info-cata, .info-content  {
+      flex-basis: 1.4rem;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
+    > .info-cata {
+      margin-left: .36rem;
+      margin-right: .04rem;
+    }
+
+    > .info-content {
+      width: 5.1rem;
+      margin-right: .36rem;
+    }
+  }
+
+  .map-content {
+    font-family: 'PingFangSC-Medium';
+    flex: 0 0 4rem;
+    width: 4rem;
+
+    > .radial-process {
 
     position: relative;
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    margin-top: 10%;
+    width: 100%;
+    height: 4rem;
+    margin-bottom: .4rem;
 
-    > .title {
-      position: absolute;
-      top: 0.3rem;
-      left: 0.3rem;
-      width: 3.4rem;
-      height: 3.4rem;
-      border-radius: 50%;
-      background-color: rgb(252, 234, 201);
+      > .title {
+        position: absolute;
+        top: 0.3rem;
+        left: 0.3rem;
+        width: 3.4rem;
+        height: 3.4rem;
+        border-radius: 50%;
+        background-color: #FFE7BF;
 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        > p {
+          margin: 3px;
+          padding: 0;
+          color: #F6A623;
+        }
+      }
+
+      > .rank-standard-model {
+        width: 1.5rem;
+        position: absolute;
+        left: 4rem;
+        bottom: 0;
+        color: #F5A623;
+        font-family: 'PingFangSC-Light';
+        display: flex;
+        align-items: center;
+
+        > img {
+          margin-right: 2px;
+        }
+      }
+    }
+  }
+
+  > .rank {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    flex: 1 1 3rem;
+
+    .grade-rank, .class-rank {
+      flex: 0 0 1.8rem;
+
+      > p {
+        text-align: center;
+        &:nth-child(2n + 1) {
+          color: #666666;
+          font-family: 'PingFangSC-Light';
+        }
+        &:nth-child(2n) {
+          color: #F6A623;
+          font-family: "PingFangSC-Medium";
+        }
+      }
+    }
+
+    .rank-split {
+      width: .1rem;
+      height: 1.44rem;
+      border-left: 1px solid #FFDDA8;
+      transform: rotate(20deg);
+    }
+  }
+  .custom-modal {
+    .modal-content {
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+
+      > .header {
+        height: 1.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'PingFangSC-Medium';
+        color: #F6A623;
+
+        > img {
+          margin-left: 6px;
+          margin-right: 6px;
+        }
+      }
+
+      > .content {
+        height: 5.52rem;
+        width: 5.2rem;
+        align-items: center;
+        table, tbody, thead {
+          width: 100%;
+        }
+
+        > table > tbody, thead {
+          > tr {
+            width: 100%;
+
+            > td {
+              text-align: center;
+              height: .68rem;
+              width: 1.733rem;
+            }
+
+            > td.small-font {
+              color: #333333;
+              font-family: 'PingFangSC-Regular';
+            }
+
+            > td.small-font.light {
+              color: #333333;
+              font-family: 'PingFangSC-Light';
+
+              &.selected {
+                color: #F5A623;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

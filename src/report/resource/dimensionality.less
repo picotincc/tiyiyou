@@ -1,5 +1,122 @@
 .tyu-dimensionality {
   // background-color: #444;
-  height: 4rem;
   width: 100%;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+
+  > .fixed-dece-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.08rem;
+    height: 3.6rem;
+  }
+
+  > .fixed-dece-right {
+    position: absolute;
+    top: 7.2rem;
+    right: 0;
+    width: .84rem;
+    height: 5.04rem;
+  }
+
+  .header {
+    height: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'PingFangSC-Medium';
+    color: #F6A623;
+
+    > img {
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+  }
+
+  > .map-content {
+    > .annotation {
+      height: .72rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      > .annotation-item {
+        margin-right: .4rem;
+        width: 1.6rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        > span {
+          height: .24rem;
+          min-width: .24rem;
+          font-family: 'PingFangSC-Light';
+          color: #666666;
+          box-sizing: border-box;
+          margin-right: .12rem;
+
+          &.green {
+            background: rgba(101,201,78,0.16);
+            border: 2px solid #65C94E;
+            border-radius: 4px;
+          }
+          &.yellow {
+            background: rgba(245,166,35,0.24);
+            border: 2px solid #F5A623;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+    > .radar-map {
+      margin-top: .6rem;
+      width: 100%;
+      height: 5.5rem;
+    }
+  }
+
+  > .low-content {
+    margin-top: 1rem;
+
+    > .content {
+      box-sizing: border-box;
+      width: 100%;
+      padding: .7rem;
+      padding-top: 0rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      > .item {
+        > p {
+          margin: 0;
+          height: .72rem;
+          font-family: 'PingFangSC-Light';
+          color: #666666;
+          overflow-y: hidden;
+          text-overflow: ellipsis;
+          display: flex;
+          align-items: center;
+
+          &:first-child {
+            font-family: PingFangSC-Medium;
+            color: #666666;
+          }
+        }
+      }
+
+      > .content-left {
+        width: 2rem;
+      }
+
+      > .content-right {
+        width: 4.3rem;
+      }
+    }
+  }
 }
