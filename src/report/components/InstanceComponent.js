@@ -46,17 +46,17 @@ export default class InstanceComponent extends Component {
   }
 
   render() {
-    if (!this.state.data) {
-      return (<div />);
-    }
+    // if (!this.state.data) {
+    //   return (<div />);
+    // }
     const contents = this.data.map(item => this.createContent(item));
 
     return (<div className="tyu-instance">
       <img src='/imgs/实例装饰@3x.png' className='fixed-dece' />
       <div className='header'>
-      <img src='/imgs/标题左.png'/>
-      <span className='big-font'>生活实例</span>
-      <img src='/imgs/标题右.png'/>
+        <img src='/imgs/标题左.png'/>
+        <span className='big-font'>生活实例</span>
+        <img src='/imgs/标题右.png'/>
       </div>
       <div className='content'>
         {contents}

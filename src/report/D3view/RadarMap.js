@@ -150,14 +150,14 @@ export default class RadarMap {
 
   draw(data, index, setting) {
     const areaData = this._initAreaData(data);
-    const color = setting.color || '#7eb00a';
+    const fillColor = setting.fillColor || '#7eb00a';
+    const strokeColor = setting.strokeColor || '#7eb00a';
     let area = this.svg.append('g').classed(`area${index}`, true)
         .append('polygon')
         .attr('points', areaData.polygon)
         .style({
-          'stroke': color,
-          'fill': color,
-          'opacity': '0.5',
+          'stroke': strokeColor,
+          'fill': fillColor,
         });
     const classname = `circles${index}`;
     this.svg.append('g')
@@ -174,9 +174,8 @@ export default class RadarMap {
         })
         .attr('r', 3)
         .style({
-          'stroke': color,
-          'fill': color,
-          'opacity': '0.5',
+          'stroke': strokeColor,
+          'fill': strokeColor,
         });
   }
 

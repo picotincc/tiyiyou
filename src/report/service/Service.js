@@ -32,7 +32,11 @@ export default class Service {
         }
       }).done(result => {
         console.log(result, 'ok');
-        resolve(result.data.subjects.category);
+        if (result.data) {
+          resolve(result.data.subjects.category);
+        } else {
+          resolve(null);
+        }
       }).fail(error => {
         console.log(error, 'bad');
         reject(error);
