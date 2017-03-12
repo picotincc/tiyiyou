@@ -31,14 +31,12 @@ export default class Service {
           id,
         }
       }).done(result => {
-        console.log(result, 'ok');
         if (result.data) {
           resolve(result.data.subjects.category);
         } else {
           resolve(null);
         }
       }).fail(error => {
-        console.log(error, 'bad');
         reject(error);
       });
     });
@@ -52,10 +50,8 @@ export default class Service {
           id,
         }
       }).done(result => {
-        console.log(result, 'ok');
         resolve(result.data);
       }).fail(error => {
-        console.log(error, 'bad');
         reject(error);
       });
     });
@@ -69,10 +65,8 @@ export default class Service {
           id,
         }
       }).done(result => {
-        console.log(result, 'ok');
         resolve(result.advice);
       }).fail(error => {
-        console.log(error, 'bad');
         reject(error);
       });
     });
