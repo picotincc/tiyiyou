@@ -10,10 +10,11 @@ import MainComponent from './MainComponent';
 export default class AppComponent extends Component {
   constructor(props) {
     super(props);
-    this.topicMap = [ 'main', 'demensionality', 'instance', 'assessment' ];
+    this.topicMap = [ 'main', 'dimensionality', 'instance', 'assessment' ];
   }
   state = {
     topicType: 'main',
+    id: 100,
   }
 
   handleTopicChange = (topicName) => {
@@ -26,10 +27,10 @@ export default class AppComponent extends Component {
 
   createContent() {
     switch(this.state.topicType) {
-      case 'main': return (<MainComponent />);
-      case 'demensionality': return (<DimensionalityComponent />);
-      case 'instance': return (<InstanceComponent />);
-      case 'assessment': return (<AssessmentComponent />);
+      case 'main': return (<MainComponent id={this.state.id} />);
+      case 'dimensionality': return (<DimensionalityComponent id={this.state.id} />);
+      case 'instance': return (<InstanceComponent id={this.state.id} />);
+      case 'assessment': return (<AssessmentComponent id={this.state.id} />);
       default: return (<ErrorComponent title="未发现该页面" message="请确认刷新"/>)
     }
   }

@@ -5,6 +5,7 @@ export default class RadarMap {
       this.dimensionalitySize = props.setting.dimensionalitySize;
       this.titles = props.setting.titles;
       this.selector = props.setting.selector;
+      this.fontSize = props.setting.fontSize;
       this._initRadarMap();
     } else {
       return null;
@@ -88,7 +89,7 @@ export default class RadarMap {
     let area = '';
     let points = [];
     for(let k = 0; k < this.dimensionalityCount; k++) {
-      const r = this.axisLength * (data[k] - 0) / 100;
+      const r = this.axisLength * (data[k] - 0);
       const x = r * Math.sin(k * onePiece);
       const y = r * Math.cos(k * onePiece);
       area += x + ',' + y + ' ';
@@ -123,6 +124,7 @@ export default class RadarMap {
 
   _drawTitle() {
     const data = this._initTitleData();
+    const size = parseInt(this.fontSize / 50 * 14);
     this.svg.append('g').classed('titles', true)
             .selectAll('text')
             .data(data)
@@ -137,11 +139,10 @@ export default class RadarMap {
             .text((d, i) => {
               return this.titles[i];
             })
-            .attr('font-size', '14px')
             .style({
-              'font-size': '14px',
-              'width': '56px',
-              'height': '20px',
+              'font-size': size + 'px',
+              'width': (4 * size) + 'px',
+              'height': (size + 6) + 'px',
               'text-align': 'center',
               'opacity': '0.5'
             })
@@ -150,14 +151,14 @@ export default class RadarMap {
 
   draw(data, index, setting) {
     const areaData = this._initAreaData(data);
-    const color = setting.color || '#7eb00a';
+    const fillColor = setting.fillColor || '#7eb00a';
+    const strokeColor = setting.strokeColor || '#7eb00a';
     let area = this.svg.append('g').classed(`area${index}`, true)
         .append('polygon')
         .attr('points', areaData.polygon)
         .style({
-          'stroke': color,
-          'fill': color,
-          'opacity': '0.5',
+          'stroke': strokeColor,
+          'fill': fillColor,
         });
     const classname = `circles${index}`;
     this.svg.append('g')
@@ -172,11 +173,10 @@ export default class RadarMap {
         .attr('cy', function(d) {
           return d.y;
         })
-        .attr('r', 3)
+        .attr('r', parseInt(this.fontSize / 50 * 3))
         .style({
-          'stroke': color,
-          'fill': color,
-          'opacity': '0.5',
+          'stroke': strokeColor,
+          'fill': strokeColor,
         });
   }
 
