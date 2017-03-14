@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Service from '../service/Service';
 
 import AssessmentComponent from './AssessmentComponent';
 import DimensionalityComponent from './DimensionalityComponent';
@@ -14,7 +15,7 @@ export default class AppComponent extends Component {
   }
   state = {
     topicType: 'main',
-    id: 100,
+    id: null,
   }
 
   handleTopicChange = (topicName) => {
@@ -35,7 +36,22 @@ export default class AppComponent extends Component {
     }
   }
 
+  componentDidMount() {
+    Service.getInstance().fetchStudentId().then((res) => {
+      // res [{id: xx}]
+      if (res) {
+        this.setState({id: res[0].id});
+      }
+      else {
+        this.setState({id: 100});
+      }
+    });
+  }
+
   render() {
+    if (this.state.id === null) {
+      return (<div />);
+    }
     const content = this.createContent();
     return (<div className="tyu-app">
       <div className='section'>{content}</div>

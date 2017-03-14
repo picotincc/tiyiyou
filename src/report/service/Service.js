@@ -23,6 +23,23 @@ export default class Service {
     });
   }
 
+  fetchStudentId() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: `${basePath}/reportUser/searchStudentByOpenID`
+      }).done(result => {
+        if (result.code === 0) {
+          resolve(result.data.students);
+        }
+        else {
+          resolve(null);
+        }
+      }).fail(error => {
+        reject(error);
+      });
+    });
+  }
+
   fetchSubjectInfo(id) {
     return new Promise((resolve, reject) => {
       $.ajax({
