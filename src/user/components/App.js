@@ -94,9 +94,10 @@ export default class App extends Component {
             kidName,
             classId: selectedKidClass.id,
             birthday: birthday.join(","),
-            school: schoolday.join(",")
+            schoolday: schoolday.join(",")
         }
         ServiceClient.addKid(paras).then(res => {
+            console.log(res);
             if(res.code == 0)
             {
                 location.href = "/report.html";
