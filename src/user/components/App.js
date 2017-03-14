@@ -97,7 +97,14 @@ export default class App extends Component {
             school: schoolday.join(",")
         }
         ServiceClient.addKid(paras).then(res => {
-            
+            if(res.success == 1)
+            {
+                location.href = "/report.html";
+            }
+            else
+            {
+                alert("添加失败");
+            }
         });
     }
 
