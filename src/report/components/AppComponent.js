@@ -40,7 +40,7 @@ export default class AppComponent extends Component {
     Service.getInstance().fetchStudentId().then((res) => {
       // res [{id: xx}]
       if (res) {
-        this.setState({id: res[0].id});
+        this.setState({id: res[0].id, res: res});
       }
       else {
         this.setState({id: 100});
@@ -50,7 +50,7 @@ export default class AppComponent extends Component {
 
   render() {
     if (this.state.id === null) {
-      return (<div />);
+      return (<div>{this.state.id}, id没拿到,{this.state.res}</div>);
     }
     const content = this.createContent();
     return (<div className="tyu-app">
