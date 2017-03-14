@@ -8,7 +8,7 @@ import VerifyCode from '../../base/components/VerifyCode';
 const IMG_URL = "/imgs";
 
 export default class App extends Component {
-    
+
     constructor (props) {
         super(props);
 
@@ -21,7 +21,7 @@ export default class App extends Component {
         this.handleAddKid = this.handleAddKid.bind(this);
     }
 
-    state = { 
+    state = {
         kidName: "",
         kidClasses: [],
         selectedKidClass: {},
@@ -39,7 +39,7 @@ export default class App extends Component {
                 kidSchools: res
             })
         });
-        
+
     }
 
     handleKidSchoolSelect(value)
@@ -97,13 +97,13 @@ export default class App extends Component {
             school: schoolday.join(",")
         }
         ServiceClient.addKid(paras).then(res => {
-            if(res.success == 1)
+            if(res.code == 0)
             {
                 location.href = "/report.html";
             }
             else
             {
-                alert("添加失败");
+                alert("添加失败", res.errorMsg);
             }
         });
     }
@@ -148,8 +148,8 @@ export default class App extends Component {
 
 
 
-    
-    render() 
+
+    render()
     {
         return (
             <div className="tyu-user-app">
@@ -164,7 +164,7 @@ export default class App extends Component {
                         <div className="label">
                             <span className="text">宝宝姓名</span>
                         </div>
-                        
+
                         <Input
                             placeholder="请输入姓名"
                             value={this.state.kidName}
@@ -177,18 +177,18 @@ export default class App extends Component {
                             <span className="text">出生日期</span>
                         </div>
 
-                         <DateInput 
+                         <DateInput
                             placeholder="请选择出生日期"
                             value={this.state.birthday}
                             onFocus={this.handleBirthDatePicker}
-                         />     
+                         />
                     </div>
 
                     <div className="input">
                         <div className="label">
                             <span className="text">所在幼儿园</span>
                         </div>
-                        
+
                         <Select
                             placeholder="请选择幼儿园"
                             combobox={false}
@@ -202,12 +202,12 @@ export default class App extends Component {
                             <span className="text">入学时间</span>
                         </div>
 
-                        <DateInput 
+                        <DateInput
                             placeholder="请选择入学时间"
                             value={this.state.schoolday}
                             onFocus={this.handleSchoolDayPicker}
                          />
-                    
+
                     </div>
 
                     <div className="input">
@@ -222,7 +222,7 @@ export default class App extends Component {
                             onSelect={this.handleKidClassSelect}
                             onChange={this.handleKidClassChange}
                         />
-                        
+
                     </div>
 
                     <div className="add-btn" onClick={this.handleAddKid}>
