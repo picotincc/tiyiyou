@@ -1,3 +1,44 @@
 .tyu-error {
-  
+  > div {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .modal-content {
+    box-sizing: padding-box;
+    padding: .4rem;
+    height: 6.4rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > .header {
+      flex-basis: 1.4rem;
+      flex-grow: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'PingFangSC-Medium';
+      color: #F6A623;
+
+      > img {
+        margin-left: 6px;
+        margin-right: 6px;
+      }
+    }
+    > .message {
+      width: 100%;
+      flex: 1 0 0;
+    }
+    > .btns {
+      flex: 0 0 .6rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+    }
+  }
 }
