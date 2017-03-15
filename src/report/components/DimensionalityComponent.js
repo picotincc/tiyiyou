@@ -41,7 +41,7 @@ export default class DimensionalityComponent extends Component {
             });
           }
           return prev;
-        }, [])
+        }, [{dimenName: '纬度', subjects: '项目'}])
       }
     }, () => {
       const setting = {
@@ -64,22 +64,17 @@ export default class DimensionalityComponent extends Component {
   }
 
   createLowContent(data) {
-    const titles = data.map(item => item.dimenName);
-    titles.unshift('纬度');
-    const projects = data.map(item => item.subjects);
-    projects.unshift('项目');
 
-    const $titles = titles.map(item => {
-      return (<p key={'title' + item} className='title'>{item}</p>);
-    });
-    const $projects = projects.map(item => {
-      return (<p key={'project' + item} className='project'>{item}</p>);
+    const $projects = data.map(item => {
+      return (<li key={'project' + item.dimenName} className='item'>
+        <div className='title'>{item.dimenName}</div>
+        <div className='project'>{item.subjects}</div>
+        </li>);
     });
 
-    return (<div className='content'>
-      <div className='item content-left'>{$titles}</div>
-      <div className='item content-right'>{$projects}</div>
-    </div>);
+    return (<ul className='content'>
+      {$projects}
+    </ul>);
   }
 
   render() {
