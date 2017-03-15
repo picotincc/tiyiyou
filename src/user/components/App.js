@@ -104,7 +104,7 @@ export default class App extends Component {
             }
             else
             {
-                alert("添加失败", res.errorMsg);
+                alert(res.errorMsg);
             }
         });
     }
