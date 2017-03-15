@@ -45,7 +45,6 @@ export default class AppComponent extends Component {
       }
       else {
         this.setState({
-          id: 100,
           errorMessage: '您尚未绑定宝宝，请点击确认，跳转宝宝绑定页面，或者取消',
         });
       }
