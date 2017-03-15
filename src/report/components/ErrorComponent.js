@@ -42,8 +42,8 @@ export default class ErrorComponent extends Component {
         </div>
         <div className='message'>{this.props.message}</div>
         <div className='btns'>
-          <a className='button red' onClick={this.handleModelHide}>取消</a>
-          <a className='button green' onClick={this.handleModelConfirm}>确认</a>
+          <a className='button red normal-font' onClick={this.handleModelHide}>取消</a>
+          <a className='button green normal-font' onClick={this.handleModelConfirm}>确认</a>
         </div>
       </div>
     </Modal>);

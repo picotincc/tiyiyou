@@ -84,38 +84,42 @@
     margin-top: 1rem;
 
     > .content {
+      list-style: none;
       box-sizing: border-box;
       width: 100%;
       padding: .7rem;
       padding-top: 0rem;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: flex-start;
 
       > .item {
-        > p {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        margin-top: .2rem;
+
+        &:first-child > span{
+          font-family: 'PingFangSC-Medium' !important;
+          color: #666666 !important;
+        }
+
+        > div {
           margin: 0;
-          height: .9rem;
           font-family: 'PingFangSC-Light';
           color: #666666;
           overflow-y: hidden;
           text-overflow: ellipsis;
-          display: flex;
-          align-items: center;
+          display: inline-block;
 
-          &:first-child {
-            font-family: PingFangSC-Medium;
-            color: #666666;
+          &.title {
+            width: 2rem;
+          }
+          &.project {
+            width: 4rem;
           }
         }
-      }
-
-      > .content-left {
-        width: 2rem;
-      }
-
-      > .content-right {
-        width: 4.3rem;
       }
     }
   }
