@@ -10,7 +10,7 @@ export default class MainComponent extends Component {
     id: PropTypes.number.isRequired
   }
 
-  static propTypes = {
+  static defaultTypes = {
     id: null
   }
 

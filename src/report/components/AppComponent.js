@@ -16,6 +16,7 @@ export default class AppComponent extends Component {
   state = {
     topicType: 'main',
     id: null,
+    errorMessage: null,
   }
 
   handleTopicChange = (topicName) => {
@@ -39,18 +40,29 @@ export default class AppComponent extends Component {
   componentDidMount() {
     Service.getInstance().fetchStudentId().then((res) => {
       // res [{id: xx}]
-      if (res) {
+      if (Array.isArray(res) && res.length > 0) {
         this.setState({id: res[0].id, res: res});
       }
       else {
-        this.setState({id: 100});
+        this.setState({
+          errorMessage: '您尚未绑定宝宝，请点击确认，跳转宝宝绑定页面，或者取消',
+        });
       }
+    }, (error) => {
+      this.setState({
+        errorMessage: '请检查网络请求失败' + error.toString()
+      });
     });
   }
 
   render() {
     if (this.state.id === null) {
-      return (<div>{this.state.id}, id没拿到,{this.state.res}</div>);
+      return (<div className="tyu-app">
+        <div className='section'>
+          <ErrorComponent title='出错信息' message={this.state.errorMessage || ""} url='/user.html' />
+        </div>
+        <FooterNavComponent topic={this.state.topicType} handleTopicChange={this.handleTopicChange} />
+      </div>);
     }
     const content = this.createContent();
     return (<div className="tyu-app">
