@@ -14,6 +14,7 @@ module.exports = {
         report: [ "./report/index.js", "./report/resource/index.less" ],
         register: [ "./register/index.js", "./register/resource/index.less" ],
         user: [ "./user/index.js", "./user/resource/index.less" ],
+        modify: [ "./modify/index.js", "./modify/resource/index.less" ],
         list: [ "./list/index.js", "./list/resource/index.less" ]
     },
 
