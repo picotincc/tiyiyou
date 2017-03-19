@@ -23,10 +23,20 @@ export default class App extends Component {
 
     }
 
+    linkToReport(id)
+    {
+        location.href = "./report.html?id=" + id;
+    }
 
+    linkToModify(id)
+    {
 
+    }
 
-
+    linkToAddKid()
+    {
+        location.href = "./user.html";
+    }
 
     render()
     {
@@ -39,19 +49,21 @@ export default class App extends Component {
                     </div>
                     <div className="slogan">少儿运动健康管理中心</div>
 
+                    <div className="list-title">已经绑定的宝宝：</div>
+
                     <ul className="kid-list">
                         {this.state.kids.map(item => {
                             return (
                                 <li className="kid-item" key={item.id}>
                                     <span className="name">{item.name}</span>
-                                    <span className="view">查看</span>
-                                    <span className="modify">修改</span>
+                                    <span className="report" onClick={() => this.linkToReport(item.id)}>体测报告</span>
+                                    <span className="modify" onClick={() => this.linkToModify(item.id)}>修改信息</span>
                                 </li>
                             );
                         })}
                     </ul>
 
-                    <div className="add-btn" onClick={this.handleAddKid}>
+                    <div className="add-btn" onClick={this.linkToAddKid}>
                         <span>添加宝宝</span>
                     </div>
 

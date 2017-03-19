@@ -5,7 +5,7 @@ import ServiceClient from '../../base/service/ServiceClient';
 const IMG_URL = "/imgs";
 
 export default class App extends Component {
-    
+
     constructor (props) {
         super(props);
         this.checkPhone = this.checkPhone.bind(this);
@@ -17,7 +17,7 @@ export default class App extends Component {
         this.redirect();
     }
 
-    state = { 
+    state = {
         phone: "",
         code: ""
     }
@@ -27,7 +27,7 @@ export default class App extends Component {
         ServiceClient.searchStudentByOpenID().then(res => {
             if(res.code == 0)
             {
-                location.href = "./report.html";
+                location.href = "./list.html";
             }
         });
     }
@@ -35,10 +35,10 @@ export default class App extends Component {
     checkPhone()
     {
         const phone = this.state.phone;
-        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){
             return false;
-        }  
-        return true; 
+        }
+        return true;
     }
 
     sendCode()
@@ -47,7 +47,7 @@ export default class App extends Component {
         ServiceClient.sendCode(phone).then(res => {
             console.log(res);
         });
-    } 
+    }
 
     handlePhoneChange(value)
     {
@@ -79,8 +79,8 @@ export default class App extends Component {
             }
         });
     }
-    
-    render() 
+
+    render()
     {
         return (
             <div className="tyu-register-app">
@@ -95,7 +95,7 @@ export default class App extends Component {
                         <div className="label">
                             <span className="text">帐号</span>
                         </div>
-                        
+
                         <Input
                             placeholder="请输入手机号"
                             value={this.state.phone}
@@ -107,7 +107,7 @@ export default class App extends Component {
                         <div className="label">
                             <span className="text">验证码</span>
                         </div>
-                        
+
                         <Input
                             customClass="code-input"
                             placeholder="请输入验证码"
@@ -115,9 +115,9 @@ export default class App extends Component {
                             onChange={this.handleCodeChange}
                         />
 
-                        <VerifyCode 
+                        <VerifyCode
                             checkPhone={this.checkPhone}
-                            onClick={this.sendCode} 
+                            onClick={this.sendCode}
                         />
                     </div>
 
