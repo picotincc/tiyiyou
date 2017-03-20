@@ -24,8 +24,8 @@ export default class App extends Component {
 
     redirect()
     {
-        ServiceClient.searchStudentByOpenID().then(res => {
-            if(res.code == 0)
+        ServiceClient.hasBindedPhone().then(res => {
+            if (res.code == 0)
             {
                 location.href = "./list.html";
             }

@@ -6,6 +6,17 @@ export default {
         return new Promise((resolve, reject) => {
             $.ajax({
                 url: `${host}/reportUser/searchStudentByOpenID`,
+                method: "GET"
+            }).always(res => {
+                resolve(res);
+            });
+        });
+    },
+
+    hasBindedPhone: () => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${host}/reportUser/hasBindedPhone`,
             }).always(res => {
                 resolve(res);
             });
@@ -63,7 +74,7 @@ export default {
     getKidClasses: (sid) => {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: `${host}/class/listKhpxBySchool`,
+                url: `${host}/reportClass/listClassesBySchool`,
                 method: "GET",
                 data: {
                     "school": sid
@@ -89,7 +100,6 @@ export default {
                     class_id: paras.classId
                 }
             }).always(res => {
-                console.log(res);
                 resolve(res);
             });
         });

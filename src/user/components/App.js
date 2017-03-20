@@ -24,7 +24,9 @@ export default class App extends Component {
     state = {
         kidName: "",
         kidClasses: [],
-        selectedKidClass: {},
+        selectedKidClass: {
+            id: -1
+        },
         kidSchools: [],
         selectedKidSchool: "",
         birthday: [],
@@ -97,10 +99,9 @@ export default class App extends Component {
             schoolday: schoolday.join(",")
         }
         ServiceClient.addKid(paras).then(res => {
-            console.log(res);
             if(res.code == 0)
             {
-                location.href = "/report.html";
+                location.href = "/list.html";
             }
             else
             {

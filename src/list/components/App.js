@@ -19,23 +19,27 @@ export default class App extends Component {
 
     componentDidMount()
     {
-
-
+        ServiceClient.searchStudentByOpenID().then(res => {
+            const students = res.data.students;
+            this.setState({
+                kids: students
+            });
+        });
     }
 
     linkToReport(id)
     {
-        location.href = "./report.html?id=" + id;
+        location.href = "/report.html?id=" + id;
     }
 
     linkToModify(id)
     {
-
+        location.href = "/modify.html?id=" + id;
     }
 
     linkToAddKid()
     {
-        location.href = "./user.html";
+        location.href = "/user.html";
     }
 
     render()
