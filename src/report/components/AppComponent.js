@@ -38,22 +38,31 @@ export default class AppComponent extends Component {
   }
 
   componentDidMount() {
-    Service.getInstance().fetchStudentId().then((res) => {
-      // res [{id: xx}]
-      if (Array.isArray(res) && res.length > 0) {
-        this.setState({id: res[0].id, res: res});
+    let id = null;
+    if (window) {
+      const params = window.location.search.slice(1).split('&');
+
+      if (params.length > 0) {
+        const paramMap = params.reduce((prev, curr) => {
+          const array = curr.split('=');
+          prev[array[0]] = array[1];
+          return prev;
+        }, {});
+        
+        if (paramMap.id.length > 0) {
+          id = paramMap.id;
+        }
       }
-      else {
-        this.setState({
-          id: 684,
-          errorMessage: '您尚未绑定宝宝，请点击确认，跳转宝宝绑定页面，或者取消查看测试数据',
-        });
-      }
-    }, (error) => {
+    }
+
+    if (id) {
+      this.setState({id: parseInt(id)});
+
+    } else {
       this.setState({
-        errorMessage: '请检查网络请求失败' + error.toString()
+        errorMessage: '您尚未绑定宝宝，请点击确认，跳转宝宝绑定页面，或者取消查看测试数据',
       });
-    });
+    }
   }
 
   render() {
