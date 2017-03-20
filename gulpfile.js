@@ -97,7 +97,7 @@ gulp.task("report-dev", [ "clean" ], cb => {
         if (err) {
             throw new gutil.PluginError("webpack-dev-server", err);
         }
-        const uri = "http://127.0.0.1:3000/report.html";
+        const uri = "http://127.0.0.1:3000/report.html?id=100";
         gutil.log("[webpack-dev-server]", uri);
         gulp.src("").pipe(open({ uri }));
     });

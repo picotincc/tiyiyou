@@ -35,7 +35,7 @@ export default class InstanceComponent extends Component {
   }
 
   createContent(data) {
-    return (<div className='item'>
+    return (<div key={data.title + Math.random().toString()} className='item'>
       <p className='title'>{data.title}</p>
       <p className='content'>{data.desc}</p>
     </div>);
