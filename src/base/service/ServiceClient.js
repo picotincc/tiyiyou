@@ -1,4 +1,4 @@
-const host = 'http://kidh5.tusport.cn/service';
+const host = '/service';
 
 export default {
 
@@ -7,6 +7,20 @@ export default {
             $.ajax({
                 url: `${host}/reportUser/searchStudentByOpenID`,
                 method: "GET"
+            }).always(res => {
+                resolve(res);
+            });
+        });
+    },
+
+    searchStudentById: (id) => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${host}/reportStudent/searchStudentById`,
+                method: "GET",
+                data: {
+                    id
+                }
             }).always(res => {
                 resolve(res);
             });
@@ -104,6 +118,24 @@ export default {
             });
         });
     },
+
+    updateKid: (paras) => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${host}/reportStudent/updateReportStudent`,
+                method: "POST",
+                data: {
+                    id: paras.id,
+                    name: paras.kidName,
+                    birthday: paras.birthday,
+                    schoolday: paras.schoolday,
+                    class_id: paras.classId
+                }
+            }).always(res => {
+                resolve(res);
+            });
+        });
+    }
 
 
 

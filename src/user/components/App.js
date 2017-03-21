@@ -15,6 +15,7 @@ export default class App extends Component {
         this.handleKidNameChange = this.handleKidNameChange.bind(this);
         this.handleKidClassSelect = this.handleKidClassSelect.bind(this);
         this.handleKidClassChange = this.handleKidClassChange.bind(this);
+        this.handleKidClassBlur = this.handleKidClassBlur.bind(this);
         this.handleBirthDatePicker = this.handleBirthDatePicker.bind(this);
         this.handleSchoolDayPicker = this.handleSchoolDayPicker.bind(this);
         this.handleKidSchoolSelect = this.handleKidSchoolSelect.bind(this);
@@ -25,7 +26,8 @@ export default class App extends Component {
         kidName: "",
         kidClasses: [],
         selectedKidClass: {
-            id: -1
+            id: -1,
+            name: ""
         },
         kidSchools: [],
         selectedKidSchool: "",
@@ -87,6 +89,18 @@ export default class App extends Component {
         this.setState({
             kidName: value
         });
+    }
+
+    handleKidClassBlur()
+    {
+        const kidClass = this.state.selectedKidClass;
+        if (kidClass.id === -1)
+        {
+            const kClass = this.state.kidClasses.find(item => item.name === "value");
+            this.setState({
+                selectedKidClass: kidClass
+            });
+        }
     }
 
     handleAddKid()
@@ -194,6 +208,7 @@ export default class App extends Component {
                         <Select
                             placeholder="请选择幼儿园"
                             combobox={false}
+                            value={this.state.selectedKidSchool.name}
                             dataSource={this.state.kidSchools.map(item => item.name)}
                             onSelect={this.handleKidSchoolSelect}
                         />
@@ -220,9 +235,11 @@ export default class App extends Component {
                         <Select
                             placeholder="请选择班级"
                             combobox={true}
+                            value={this.state.selectedKidClass.name}
                             dataSource={this.state.kidClasses.map(item => item.name)}
                             onSelect={this.handleKidClassSelect}
                             onChange={this.handleKidClassChange}
+                            onBlur={this.handleKidClassBlur}
                         />
 
                     </div>

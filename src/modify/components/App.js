@@ -18,10 +18,11 @@ export default class App extends Component {
         this.handleBirthDatePicker = this.handleBirthDatePicker.bind(this);
         this.handleSchoolDayPicker = this.handleSchoolDayPicker.bind(this);
         this.handleKidSchoolSelect = this.handleKidSchoolSelect.bind(this);
-        this.handleAddKid = this.handleAddKid.bind(this);
+        this.handleModifyKid = this.handleModifyKid.bind(this);
     }
 
     state = {
+        userinfo: {},
         kidName: "",
         kidClasses: [],
         selectedKidClass: {},
@@ -33,13 +34,55 @@ export default class App extends Component {
 
     componentDidMount()
     {
-        //获取所有幼儿园
-        ServiceClient.getKidSchools().then(res => {
-            this.setState({
-                kidSchools: res
-            })
+        let id = null;
+        if (window) {
+          const params = window.location.search.slice(1).split('&');
+
+          if (params.length > 0) {
+            const paramMap = params.reduce((prev, curr) => {
+              const array = curr.split('=');
+              prev[array[0]] = array[1];
+              return prev;
+            }, {});
+
+            if (paramMap.id.length > 0) {
+              id = paramMap.id;
+            }
+          }
+        }
+        ServiceClient.getKidSchools().then(kidSchools => {
+            ServiceClient.searchStudentById(id).then(res => {
+                console.log(res);
+                const student = res.data.report_student;
+                const birthday = this.formatDate(student.birthday);
+                const schoolday = this.formatDate(student.schoolday);
+                const selectedKidSchool = kidSchools.find(item => item.name === student.school_name);
+                const selectedKidClass = {
+                    id: student.class_id,
+                    name: student.class_name
+                }
+                ServiceClient.getKidClasses(selectedKidSchool.id).then(res => {
+                    this.setState({
+                        userinfo: student,
+                        kidName: student.name,
+                        kidClasses: res,
+                        selectedKidClass,
+                        kidSchools,
+                        selectedKidSchool,
+                        birthday,
+                        schoolday
+                    });
+                });
+            });
         });
 
+
+    }
+
+    formatDate(dateStr)
+    {
+        const date = new Date(dateStr);
+        return [date.getFullYear(), date.getMonth() + 1, date.getDate()];
     }
 
     handleKidSchoolSelect(value)
@@ -87,19 +130,20 @@ export default class App extends Component {
         });
     }
 
-    handleAddKid()
+    handleModifyKid()
     {
-        const { kidName, selectedKidClass, birthday, schoolday } = this.state;
+        const { userinfo, kidName, selectedKidClass, birthday, schoolday } = this.state;
         const paras = {
+            id: userinfo.id,
             kidName,
             classId: selectedKidClass.id,
             birthday: birthday.join(","),
             schoolday: schoolday.join(",")
         }
-        ServiceClient.addKid(paras).then(res => {
+        ServiceClient.updateKid(paras).then(res => {
             if(res.code == 0)
             {
-                location.href = "/report.html";
+                location.href = "/list.html";
             }
             else
             {
@@ -144,7 +188,7 @@ export default class App extends Component {
             },
             id: 'school-datePicker'
         });
-        
+
     }
 
 
@@ -193,6 +237,7 @@ export default class App extends Component {
                         <Select
                             placeholder="请选择幼儿园"
                             combobox={false}
+                            value={this.state.selectedKidSchool.name}
                             dataSource={this.state.kidSchools.map(item => item.name)}
                             onSelect={this.handleKidSchoolSelect}
                         />
@@ -219,6 +264,7 @@ export default class App extends Component {
                         <Select
                             placeholder="请选择班级"
                             combobox={true}
+                            value={this.state.selectedKidClass.name}
                             dataSource={this.state.kidClasses.map(item => item.name)}
                             onSelect={this.handleKidClassSelect}
                             onChange={this.handleKidClassChange}
@@ -226,8 +272,8 @@ export default class App extends Component {
 
                     </div>
 
-                    <div className="add-btn" onClick={this.handleAddKid}>
-                        <span>确认添加</span>
+                    <div className="add-btn" onClick={this.handleModifyKid}>
+                        <span>确认修改</span>
                     </div>
 
                 </div>

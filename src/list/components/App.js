@@ -11,10 +11,7 @@ export default class App extends Component {
     }
 
     state = {
-        kids: [
-            {id:1, name:"管登荣"},
-            {id:2, name:"顾必成"}
-        ]
+        kids: []
     }
 
     componentDidMount()
