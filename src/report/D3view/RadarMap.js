@@ -107,15 +107,15 @@ export default class RadarMap {
   _initTitleData() {
     const textPoints = [];
     const onePiece = 2 * Math.PI / this.dimensionalityCount;
-    const radius = this.axisLength + 30;
+    const radius = this.axisLength + 50;
     for (let i = 0; i < this.dimensionalityCount; i++) {
         let x = radius * Math.sin(i * onePiece);
         let y = radius * Math.cos(i * onePiece);
         if (i === 0 || i - (this.dimensionalityCount + 1) / 2  < 0.01) {
-          y = (radius - 20) * Math.cos(i * onePiece);
+          y = (radius - 40) * Math.cos(i * onePiece);
         }
         if (i == (this.dimensionalityCount + 1) * 1 / 4 || i == (this.dimensionalityCount + 1) * 3 / 4) {
-          x = (radius - 20) * Math.sin(i * onePiece);
+          x = (radius - 40) * Math.sin(i * onePiece);
         }
         textPoints.push({x, y});
     }
