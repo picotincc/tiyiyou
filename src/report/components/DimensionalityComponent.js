@@ -25,19 +25,20 @@ export default class DimensionalityComponent extends Component {
     // const mapData = this.state.setting.titles.map(item => {
     //   return value.categories[item].score / value.categories[item].total_score;
     // });
+    console.log(value);
     const titles = Object.keys(value.categories);
     const mapData = titles.map(item => {
       return value.categories[item].score / value.categories[item].total_score;
     });
 
     const mean = mapData.reduce((prev, curr) => (prev + curr), 0) / mapData.length;
-    const meanMapData = this.state.setting.titles.map(item => mean);
+    const meanMapData = titles.map(item => mean);
 
     this.setState({
       data: {
         mapData,
         meanMapData,
-        lowData: this.state.setting.titles.reduce((prev, curr) => {
+        lowData: titles.reduce((prev, curr) => {
           if (value.low_categories[curr]) {
             prev.push({
               dimenName: curr,
@@ -49,9 +50,9 @@ export default class DimensionalityComponent extends Component {
       }
     }, () => {
       const setting = {
-        dimensionalityCount: 7,
+        dimensionalityCount: titles.length,
         dimensionalitySize: 5,
-        titles: ['手眼协调', '灵敏', '平衡', '手部协调', '爆发力', '动作协调', '耐力'],
+        titles: titles,
         selector: '.radar-map',
         fontSize: parseInt(document.documentElement.style.fontSize.split('p')[0])
       };
