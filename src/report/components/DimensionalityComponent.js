@@ -27,15 +27,16 @@ export default class DimensionalityComponent extends Component {
     // });
     console.log(value);
     const titles = Object.keys(value.categories);
-    const mapData = titles.map(item => {
+    const serData = titles.map(item => {
       if (value.categories[item].total_score <= 0) {
         return 0;
       }
       return value.categories[item].score / value.categories[item].total_score;
     });
 
-    const mean = mapData.reduce((prev, curr) => (prev + curr), 0) / mapData.length;
-    const meanMapData = titles.map(item => mean);
+    const mean = serData.reduce((prev, curr) => (prev + curr), 0) / serData.length;
+    const mapData = serData.map(item => item <= 0 ? mean : item);
+    const meanMapData = titles.map(item => value.categories[item].mean_rate);
 
     this.setState({
       data: {
