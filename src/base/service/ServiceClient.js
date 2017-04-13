@@ -105,7 +105,7 @@ export default {
     addKid: (paras) => {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: `${host}/reportStudent/addReportStudent`,
+                url: `${host}/reportStudent/bindReportStudent`,
                 method: "POST",
                 data: {
                     name: paras.kidName,
