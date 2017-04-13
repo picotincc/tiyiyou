@@ -22,10 +22,7 @@ export default class DimensionalityComponent extends Component {
   }
 
   serializeData(value) {
-    // const mapData = this.state.setting.titles.map(item => {
-    //   return value.categories[item].score / value.categories[item].total_score;
-    // });
-    console.log(value);
+    
     const titles = Object.keys(value.categories);
     const serData = titles.map(item => {
       if (value.categories[item].total_score <= 0) {
