@@ -28,6 +28,9 @@ export default class DimensionalityComponent extends Component {
     console.log(value);
     const titles = Object.keys(value.categories);
     const mapData = titles.map(item => {
+      if (value.categories[item].total_score <= 0) {
+        return 0;
+      }
       return value.categories[item].score / value.categories[item].total_score;
     });
 
