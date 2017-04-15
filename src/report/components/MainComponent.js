@@ -41,8 +41,8 @@ export default class MainComponent extends Component {
         kindergarten: value.kindergarten,
         score: value.mq,
         scoreType: value.mq_title,
-        rankInGrade: value.grade_rate.toFixed(4),
-        rankInClass: value.class_rate.toFixed(4),
+        rankInGrade: parseFloat(value.grade_rate * 100).toFixed(2),
+        rankInClass: parseFloat(value.class_rate * 100).toFixed(2),
         selectedStandardIndex: this.standardInfo.limit.findIndex(item => item <= value.mq),
       }
     });
@@ -131,13 +131,13 @@ export default class MainComponent extends Component {
       <div className='rank'>
         <div className="grade-rank">
           <p className='small-font'>超过了全年级</p>
-          <p className='big-font'>{this.state.userInfo.rankInGrade * 100}%</p>
+          <p className='big-font'>{this.state.userInfo.rankInGrade}%</p>
           <p className='small-font'>的宝贝</p>
         </div>
         <div className='rank-split'></div>
         <div className="class-rank">
           <p className='small-font'>超过了全班</p>
-          <p className='big-font'>{this.state.userInfo.rankInClass * 100}%</p>
+          <p className='big-font'>{this.state.userInfo.rankInClass}%</p>
           <p className='small-font'>的宝贝</p>
         </div>
       </div>
